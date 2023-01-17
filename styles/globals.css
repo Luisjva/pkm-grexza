@@ -24,3 +24,11 @@ body {
   padding: 0 1.5rem;
   position: relative;
 }
+
+@media screen and (min-width: 500px) {
+  .body {
+    width: 88%;
+    margin: auto;
+    max-width: 840px;
+  }
+}

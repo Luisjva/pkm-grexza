@@ -1,7 +1,21 @@
 import Head from "next/head";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { novedades } from "../utilidades";
+
+let timerId;
 
 export default function Home() {
+  const [novedadActual, setNovedadActual] = useState(0);
+
+  useEffect(()=>{
+    if(timerId) clearTimeout(timerId);
+
+    timerId = setTimeout(() => {
+      setNovedadActual(novedadActual + 1 < novedades.length ? novedadActual + 1:0);
+    }, 10000);
+  },[novedadActual])
+
   return (
     <div>
       <Head>
@@ -13,7 +27,38 @@ export default function Home() {
       <header></header>
 
       <div className="body">
-        <p>hola</p>
+        <div className="novedades__contenedor">
+          <div className="novedades__opciones">
+            {novedades.map((novedad, index)=>{
+              return(
+                <div 
+                  className={
+                    index != novedadActual ?
+                      "novedades__opciones--movimiento novedades__opciones__ball":
+                      "novedades__opciones__ball"} 
+                  onClick={()=> setNovedadActual(index)} 
+                  key={"novedad"+index}
+                  style={{
+                    background: (index != novedadActual ? "url(/ball0" + index + ".png)" : "url(/ball0" + index + "_open.png)"),
+                    backgroundPosition: "center",
+                    backgroundSize: "cover",
+                    backgroundRepeat: "no-repeat",
+                    width: "30px",
+                    height: "55px"
+                  }}
+                >
+                </div>
+              )
+            })}
+          </div>
+          <div className="novedades__info">
+            <div>
+              <h2>{novedades[novedadActual].titulo}</h2>
+              <p>info info info info info info info info info info info info info info info info info info info info info info info info </p>
+            </div>
+            <Image src={"/403.png"} width="250" height="250" alt="img"/>
+          </div>
+        </div>
       </div>
       <style jsx>{`
         header {
@@ -22,6 +67,60 @@ export default function Home() {
           background-position: center;
           height: 55vw;
           max-height: 350px;
+        }
+
+        .novedades__contenedor {
+          margin: 1rem 0;
+        }
+
+        .novedades__contenedor > h2, .novedades__contenedor > p {
+          width: 100%;
+        }
+
+        .novedades__opciones {
+          display: flex;
+          justify-content: center;
+          gap: 1rem;
+        }
+
+        .novedades__opciones__ball {
+          background-repeat: no-repeat;
+        }
+
+        .novedades__opciones--movimiento:hover {
+          animation-duration: .5s;
+          animation-name: seleccion;
+        }
+
+        @keyframes seleccion {
+          10% {
+            transform: translateX(15%); 
+          }
+
+          30% {
+            transform: translateX(-10%); 
+          }
+
+          60% {
+            transform: translateX(8%); 
+          }
+          80% {
+            transform: translateX(-5%); 
+          }
+        }
+
+        .novedades__info {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+        }
+
+        @media screen and (min-width: 600px) {
+          .novedades__info {
+            display: grid;
+            grid-template-columns: 2fr 1fr; 
+          }
         }
       `}</style>
     </div>

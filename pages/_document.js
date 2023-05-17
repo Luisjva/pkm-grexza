@@ -4,6 +4,7 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
+        {/* Por ahora no se toca esto */}
         <Head>
           <link
             href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap"

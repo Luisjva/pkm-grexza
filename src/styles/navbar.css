@@ -1,0 +1,33 @@
+.navbar{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 75px;
+    padding: 1em;
+    background-image: url("/NAV_GRIEGO_1.jpg");
+    background-repeat: round;
+    resize: both;
+    position: sticky;
+    top: 0;
+    font: 12px;
+    justify-content: space-between;
+}
+
+.navbar__name-container_p{
+    color: white;             
+    font-weight: 800;
+    font-size: 2em;    
+}
+
+.navbar__link-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    list-style: none;
+    gap: 20px;
+}
+
+.navbar__link-container_item > a{
+    color: white;
+    text-decoration: none;
+}
